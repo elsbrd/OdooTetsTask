@@ -1,0 +1,37 @@
+<odoo>
+   <record id="view_file_manager_form" model="ir.ui.view">
+        <field name="name">file.manager.form</field>
+        <field name="model">file.manager</field>
+        <field name="arch" type="xml">
+            <form string="File Manager">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="file_data" invisible="is_disk == is_saved == True" filename="name" readonly="is_saved == True"/>
+                        <field name="download_url" widget='url' invisible="download_url == ''" readonly="1"/>
+                        <field name="storage_type" readonly="is_saved == True"/>
+                        <field name="is_disk" invisible="1"/>
+                        <field name="is_saved" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_file_manager_tree" model="ir.ui.view">
+        <field name="name">file.manager.tree</field>
+        <field name="model">file.manager</field>
+        <field name="arch" type="xml">
+            <tree string="File Manager">
+                <field name="name"/>
+                <field name="storage_type"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_file_manager" model="ir.actions.act_window">
+        <field name="name">Files</field>
+        <field name="res_model">file.manager</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_file_manager" name="File Manager"
+              action="action_file_manager"/>
+</odoo>
