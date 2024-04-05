@@ -107,7 +107,7 @@ class FileManager(models.Model):
     def _build_file_download_url(self, record: 'FileManager') -> str:
         """Constructs the URL to download the file."""
 
-        return f"{self._web_base_url}/files/download/{record.id}"
+        return f"{self._get_web_base_url()}/files/download/{record.id}"
 
     @staticmethod
     def _is_disk_stored(record: 'FileManager') -> bool:
@@ -115,8 +115,7 @@ class FileManager(models.Model):
 
         return record.storage_type == StorageType.DISK.value
 
-    @cached_property
-    def _web_base_url(self) -> str:
+    def _get_web_base_url(self) -> str:
         """Retrieves the base web URL from system parameters."""
 
         return self.env["ir.config_parameter"].sudo().get_param("web.base.url")
